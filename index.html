@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>SARAL MANDI AI - Accessible Market Intelligence for Every Farmer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>🌾 SARAL MANDI AI</h1>
+                <p class="tagline">Accessible AI Market Intelligence for Every Farmer</p>
+            </div>
+            <div class="header-controls">
+                <button id="highContrastToggle" class="contrast-btn" aria-label="Toggle high contrast mode">🌓 High Contrast</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Crop Selection Section -->
+            <section class="crop-section" aria-labelledby="crop-selection-heading">
+                <h2 id="crop-selection-heading">📋 Choose Your Crop</h2>
+                <div class="crop-grid" id="cropGrid">
+                    <!-- Crops will be dynamically loaded here -->
+                </div>
+            </section>
+
+            <!-- Input Section -->
+            <section class="input-section" aria-labelledby="input-heading">
+                <h2 id="input-heading">⚖️ Enter Quantity</h2>
+                <div class="input-group">
+                    <label for="quantity">Quantity (in kg):</label>
+                    <input 
+                        type="number" 
+                        id="quantity" 
+                        min="1" 
+                        value="500" 
+                        placeholder="Enter quantity in kg"
+                        aria-label="Enter quantity in kilograms"
+                    >
+                    <button id="analyzeBtn" class="primary-btn">🔍 Get Recommendation</button>
+                </div>
+            </section>
+
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" class="spinner hidden" role="status" aria-label="Loading">
+                <div class="spinner-circle"></div>
+                <span>Loading your market data...</span>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message hidden" role="alert"></div>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="dashboard hidden" aria-labelledby="dashboard-heading">
+                <h2 id="dashboard-heading">📊 Market Intelligence Dashboard</h2>
+                
+                <!-- Key Metrics Grid -->
+                <div class="metrics-grid">
+                    <!-- Best Market Card -->
+                    <div class="metric-card best-market-card">
+                        <h3>🏆 Best Market</h3>
+                        <div class="market-details">
+                            <span class="market-name" id="bestMarketName">-</span>
+                            <span class="profit-amount" id="netProfit">₹0</span>
+                        </div>
+                        <p class="profit-label">Net Profit</p>
+                    </div>
+
+                    <!-- Risk Card -->
+                    <div class="metric-card" id="riskCard">
+                        <h3>⚠️ Risk Level</h3>
+                        <div class="risk-badge" id="riskLevel">-</div>
+                    </div>
+
+                    <!-- Stability Card -->
+                    <div class="metric-card">
+                        <h3>📈 Stability Score</h3>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="stabilityBar" style="width: 0%">0%</div>
+                        </div>
+                        <span class="score-value" id="stabilityScore">0</span>
+                    </div>
+
+                    <!-- Decision Card -->
+                    <div class="metric-card decision-card">
+                        <h3>💡 Decision</h3>
+                        <p class="decision-text" id="decision">-</p>
+                    </div>
+                </div>
+
+                <!-- Profit Comparison -->
+                <div class="comparison-section">
+                    <h3>💰 Profit Comparison</h3>
+                    <div class="comparison-bars">
+                        <div class="comparison-item">
+                            <span>Local Market</span>
+                            <div class="bar-container">
+                                <div class="bar local-bar" id="localProfitBar" style="width: 0%">0%</div>
+                            </div>
+                        </div>
+                        <div class="comparison-item">
+                            <span>Recommended Mandi</span>
+                            <div class="bar-container">
+                                <div class="bar recommended-bar" id="recommendedProfitBar" style="width: 0%">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart and Map Row -->
+                <div class="row">
+                    <!-- Price Trend Chart -->
+                    <div class="chart-container">
+                        <h3>📅 7-Day Price Trend</h3>
+                        <canvas id="priceChart"></canvas>
+                    </div>
+
+                    <!-- Map Container -->
+                    <div class="map-container">
+                        <h3>🗺️ Mandi Locations</h3>
+                        <div id="map" class="map"></div>
+                    </div>
+                </div>
+
+                <!-- Voice Advisory Section -->
+                <div class="voice-section">
+                    <button id="playVoiceBtn" class="voice-btn">
+                        🔊 Play Voice Advisory
+                    </button>
+                    <audio id="voiceAudio" controls style="display: none;"></audio>
+                </div>
+
+                <!-- AI Advisory Text -->
+                <div class="advisory-text">
+                    <h3>🤖 AI Advisory</h3>
+                    <p id="aiAdvisory"></p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2024 SARAL MANDI AI - Making Market Intelligence Accessible to Every Farmer</p>
+            <p class="keyboard-note">⌨️ Press Tab to navigate | Space to select</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
